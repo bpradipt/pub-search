@@ -27,9 +27,18 @@ class PubSchema extends \Search\Schema
     public function __construct()
     {
         $this
+            ->addText('id')
             ->addText('name')
             ->addText('name_ngram')
-            ->addText('area')
-            ->addText('address');
+            ->addText('type')
+            ->addText('price')
+            ->addText('upc')
+            ->addText('shipping')
+            ->addText('description')
+            ->addText('manufacturer')
+            ->addText('model')
+            ->addText('url')
+            ->addText('image');
     }
+
 }

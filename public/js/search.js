@@ -54,7 +54,7 @@ search.go = function(q){
         }
         search.frh.text(response.length + result_label + ' for "' + q + '"');
         for (pub in response) {
-            search.fr.append('<a class="list-group-item" href="#"><strong>' + response[pub].name + '</strong>, ' + response[pub].area + ' - ' + response[pub].address + '</a>');
+            search.fr.append('<a class="list-group-item" href="#"><strong>' + response[pub].name + '</strong>, ' + response[pub].description + '</a>');
         }
     });
 };

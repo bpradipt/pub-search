@@ -32,17 +32,25 @@ $obj_index->delete($arr_ids);
 
 
 // Load and process file
-$arr_pubs = json_decode(file_get_contents('../resources/pubs.json'));
+$arr_pubs = json_decode(file_get_contents('../resources/prod.json'),true);
 $arr_pub_docs = [];
 $obj_tkzr = new \Search\Tokenizer();
 foreach($arr_pubs as $arr_pub) {
 
     // Prepare doc
     $arr_pub_docs[] = $obj_schema->createDocument([
-        'name' => $arr_pub[0],
-        'name_ngram' => $obj_tkzr->edgeNGram($arr_pub[0]),
-        'area' => $arr_pub[1],
-        'address' => $arr_pub[2]
+        'id' => $arr_pub['id'],
+        'name' => $arr_pub['name'],
+        'name_ngram' => $obj_tkzr->edgeNGram($arr_pub['name']),
+        'type' => $arr_pub['type'],
+        'price' => $arr_pub['price'],
+        'upc' => $arr_pub['upc'],
+        'shipping' => $arr_pub['shipping'],
+        'description' => $arr_pub['description'],
+        'manufacturer' => $arr_pub['manufacturer'],
+        'model' => $arr_pub['model'],
+        'url' => $arr_pub['url'],
+        'image' => $arr_pub['image']
     ]);
 
     // Insert batch

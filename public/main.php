@@ -20,7 +20,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>App Engine Search API PHP Demo</title>
+    <title>Autocomplete Demo using APP Engine Search API</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/css/search.css">
@@ -31,26 +31,14 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h1><img src="/img/google-app-engine-logo.png" id="gae-logo" /> App Engine Search <span class="hidden-xs">API with</span> PHP</h1>
+            <h1><img src="/img/google-app-engine-logo.png" id="gae-logo" /> Autocomplete Demo using App Engine Search </h1>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-8">
-            <h2>What's this then?</h2>
-            <p>A super simple web app using the <a href="https://github.com/tomwalder/php-appengine-search">php-appengine-search</a> library to access Google App Engine Search API directly from PHP.</p>
-        </div>
-        <div class="col-md-4">
-            <h2>Resources</h2>
-            <p><a href="https://github.com/tomwalder/php-appengine-search" target="_blank"><span aria-hidden="true" class="glyphicon glyphicon-new-window"></span> <span class="hidden-xs">The</span> php-appengine-search library on GitHub</a></p>
-            <p><a href="https://github.com/tomwalder/pub-search" target="_blank"><span aria-hidden="true" class="glyphicon glyphicon-new-window"></span> Demo application (this web site)</a></p>
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-md-12">
-            <h2>Pub Search</h2>
-            <p>Much better than a guest book!</p>
+            <h2>Product Search</h2>
         </div>
     </div>
 

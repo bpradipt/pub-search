@@ -31,7 +31,7 @@ $arr_docs = [];
 foreach($obj_response->results as $obj_result) {
     $arr_docs[] = [
         'name' => htmlspecialchars($obj_result->doc->name),
-        'area' => htmlspecialchars($obj_result->doc->area)
+        'description' => htmlspecialchars($obj_result->doc->description)
     ];
 }
 
