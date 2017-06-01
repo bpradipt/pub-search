@@ -5,7 +5,7 @@
     "keywords": [ "php-appengine-search", "search", "appengine" ],
     "homepage": "https://github.com/tomwalder/pub-search",
     "require": {
-        "tomwalder/php-appengine-search": "dev-master"
+       "tomwalder/php-appengine-search": "dev-master"
     },
     "autoload": {
         "classmap": [

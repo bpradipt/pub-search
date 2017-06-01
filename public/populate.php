@@ -21,7 +21,7 @@ $obj_schema = new Demo\PubSchema();
 $obj_index = new \Search\Index('pubs');
 
 // Clear out old data
-$obj_response = $obj_index->search((new \Search\Query())->limit(2000));
+$obj_response = $obj_index->search((new \Search\Query())->limit(200));
 $arr_ids = [];
 foreach($obj_response->results as $obj_result) {
     $arr_ids[] = $obj_result->doc->getId();
@@ -32,39 +32,48 @@ $obj_index->delete($arr_ids);
 
 
 // Load and process file
-$arr_pubs = json_decode(file_get_contents('../resources/prod.json'),true);
-$arr_pub_docs = [];
-$obj_tkzr = new \Search\Tokenizer();
-foreach($arr_pubs as $arr_pub) {
+$filelist = array('gs://catalog-pkb/products.1.json', 'gs://catalog-pkb/products.2.json',
+              'gs://catalog-pkb/products.3.json', 'gs://catalog-pkb/products.4.json',
+	      'gs://catalog-pkb/products.5.json', 'gs://catalog-pkb/products.6.json');
 
-    // Prepare doc
-    $arr_pub_docs[] = $obj_schema->createDocument([
-        'id' => $arr_pub['id'],
-        'name' => $arr_pub['name'],
-        'name_ngram' => $obj_tkzr->edgeNGram($arr_pub['name']),
-        'type' => $arr_pub['type'],
-        'price' => $arr_pub['price'],
-        'upc' => $arr_pub['upc'],
-        'shipping' => $arr_pub['shipping'],
-        'description' => $arr_pub['description'],
-        'manufacturer' => $arr_pub['manufacturer'],
-        'model' => $arr_pub['model'],
-        'url' => $arr_pub['url'],
-        'image' => $arr_pub['image']
-    ]);
+foreach ($filelist as $file) {
 
-    // Insert batch
-    if(count($arr_pub_docs) >= 100) {
-        echo "Inserting batch of " . count($arr_pub_docs) . "<br/>";
-        $obj_index->put($arr_pub_docs);
-        $arr_pub_docs = [];
-    }
+    	echo "Inserting data from " . $file . "<br/>";
+	$arr_pubs = json_decode(file_get_contents($file),true);
+	$arr_pub_docs = [];
+	$obj_tkzr = new \Search\Tokenizer();
+	foreach($arr_pubs as $arr_pub) {
+
+    		// Prepare doc
+	    	$arr_pub_docs[] = $obj_schema->createDocument([
+        		'id' => $arr_pub['id'],
+	        	'name' => $arr_pub['name'],
+	        	'name_ngram' => $obj_tkzr->edgeNGram($arr_pub['name']),
+		        'type' => $arr_pub['type'],
+		        'price' => $arr_pub['price'],
+		        'upc' => $arr_pub['upc'],
+		        'shipping' => $arr_pub['shipping'],
+		        'description' => $arr_pub['description'],
+		        'manufacturer' => $arr_pub['manufacturer'],
+		        'model' => $arr_pub['model'],
+		        'url' => $arr_pub['url'],
+		        'image' => $arr_pub['image']
+		    ]);
+
+	    	// Insert batch
+		if(count($arr_pub_docs) >= 100) {
+        		echo "Inserting batch of " . count($arr_pub_docs) . "<br/>";
+		        $obj_index->put($arr_pub_docs);
+		        $arr_pub_docs = [];
+    		}
+	}
+	// Insert last batch
+	if(count($arr_pub_docs) >= 1) {
+	    echo "Inserting batch of " . count($arr_pub_docs) . "<br/>";
+	    $obj_index->put($arr_pub_docs);
+	    $arr_pub_docs = [];
+	}
+	unset($arr_pubs);
 }
 
-// Insert last batch
-if(count($arr_pub_docs) >= 1) {
-    echo "Inserting batch of " . count($arr_pub_docs) . "<br/>";
-    $obj_index->put($arr_pub_docs);
-    $arr_pub_docs = [];
-}
 
